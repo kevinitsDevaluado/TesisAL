@@ -1,0 +1,37 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Nro</th>
+    <th>Nombre del Cliente</th>
+    <th>Pedido</th>
+    <th>Estado</th>
+    <th class="text-center">Opciones</th>
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.client.user.last_name | upper }} {{ i.client.user.first_name |upper }}  / {{ i.client.user.dni }}</td>
+            <td>{{ i.pedido | upper}}</td>
+            <td class="text-center">
+                {% if i.activo  %}
+                <p class="bg-success" >Activo</p>
+                {%  else %}
+                <p class="bg-danger">Finalizado</p>
+                {% endif  %}
+            </td>
+            <td class="text-center">
+                <a href="{% url 'update_pedido' i.id %}" data-toggle="tooltip" title="Entregado"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'sale_admin_create' %}" data-toggle="tooltip" title="Facturar" target="_blank"
+                   class="btn btn-info btn-xs btn-flat">
+                    <i class="fas fa-calculator"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
