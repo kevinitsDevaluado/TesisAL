@@ -11,7 +11,7 @@ from config import settings
 from core.pos.models import Sale, Company
 
 
-class SalePrintVoucherView(LoginRequiredMixin, View):
+class SalePrintVoucherView(View):
     success_url = reverse_lazy('sale_admin_list')
 
     def get_success_url(self):
