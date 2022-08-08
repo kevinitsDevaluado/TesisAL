@@ -7,7 +7,7 @@ __pycache__/
 **/migrations/*
 */logs/*
 
-staticfiles/*
+
 media
 .idea
 
