@@ -269,7 +269,7 @@ class PurchaseDetail(models.Model):
 
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    mobile = models.CharField(max_length=10, unique=True, verbose_name='Teléfono')
+    mobile = models.CharField(max_length=10, verbose_name='Teléfono')
     birthdate = models.DateField(default=datetime.now, verbose_name='Fecha de nacimiento')
     address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Dirección')
 
