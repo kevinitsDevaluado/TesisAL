@@ -111,7 +111,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Categoría')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría')
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00, verbose_name='Precio de Compra')
     pvp = models.DecimalField(max_digits=9, decimal_places=2, default=0.00, verbose_name='Precio de Venta')
     image = models.ImageField(upload_to='product/%Y/%m/%d', verbose_name='Imagen', null=True, blank=True)
@@ -193,7 +193,7 @@ class Product(models.Model):
 
 
 class Purchase(models.Model):
-    provider = models.ForeignKey(Provider, on_delete=models.PROTECT)
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     payment_condition = models.CharField(choices=payment_condition, max_length=50, default='contado')
     date_joined = models.DateField(default=datetime.now)
     end_credit = models.DateField(default=datetime.now)
@@ -242,8 +242,8 @@ class Purchase(models.Model):
 
 
 class PurchaseDetail(models.Model):
-    purchase = models.ForeignKey(Purchase, on_delete=models.PROTECT)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cant = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     dscto = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
@@ -292,8 +292,8 @@ class Client(models.Model):
 
 
 class Sale(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.PROTECT, null=True, blank=True)
-    employee = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+    employee = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     estado = models.BooleanField(default=False, blank=True, null=True)
     disponibilidad = models.CharField(max_length=2, blank=True, null=True, default="0")
     image = models.ImageField(null=True, blank=True, upload_to='sale/%Y/%m/%d', verbose_name='Sale')
@@ -411,7 +411,7 @@ class Sale(models.Model):
 
 class SaleDetail(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cant = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     subtotal = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
@@ -446,7 +446,7 @@ class SaleDetail(models.Model):
 
 
 class Pedido(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.PROTECT, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
     pedido = models.CharField(max_length=5000, null=True, blank=True, verbose_name='Pedido')
     activo = models.BooleanField(default=True, verbose_name='Activo')
 
@@ -465,7 +465,7 @@ class Pedido(models.Model):
 
 
 class CtasCollect(models.Model):
-    sale = models.ForeignKey(Sale, on_delete=models.PROTECT)
+    sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
     date_joined = models.DateField(default=datetime.now)
     end_date = models.DateField(default=datetime.now)
     debt = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
@@ -529,7 +529,7 @@ class PaymentsCtaCollect(models.Model):
 
 
 class DebtsPay(models.Model):
-    purchase = models.ForeignKey(Purchase, on_delete=models.PROTECT)
+    purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     date_joined = models.DateField(default=datetime.now)
     end_date = models.DateField(default=datetime.now)
     debt = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
@@ -609,7 +609,7 @@ class TypeExpense(models.Model):
 
 
 class Expenses(models.Model):
-    typeexpense = models.ForeignKey(TypeExpense, verbose_name='Tipo de Gasto', on_delete=models.PROTECT)
+    typeexpense = models.ForeignKey(TypeExpense, verbose_name='Tipo de Gasto', on_delete=models.CASCADE)
     desc = models.CharField(max_length=500, null=True, blank=True, verbose_name='Descripción')
     date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de Registro')
     valor = models.DecimalField(max_digits=9, decimal_places=2, default=0.00, verbose_name='Valor')
@@ -658,7 +658,7 @@ class Promotions(models.Model):
 
 class PromotionsDetail(models.Model):
     promotion = models.ForeignKey(Promotions, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price_current = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     dscto = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     total_dscto = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
