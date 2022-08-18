@@ -26,9 +26,10 @@ class ClientViewSet(viewsets.GenericViewSet):
         users_serializer = UserSerializer(data=request.data)
         if users_serializer.is_valid():
             email = request.data['email']
-            users_serializer.instance.email = email
             users_serializer.save()
             id_cli = User.objects.get(id = users_serializer.data['id'])
+            id_cli.email = email
+            id_cli.save()
             mobile = request.data['mobile']
             address = request.data['address']
             Client.objects.create(user=id_cli,mobile=mobile,address=address)
