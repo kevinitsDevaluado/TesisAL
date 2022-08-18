@@ -153,6 +153,12 @@ SIMPLE_JWT = {
 }
 
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kevin.alvarado8502@hotmail.com'
+EMAIL_HOST_PASSWORD = 'kevinpaul1997'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2.2/howto/static-files/
 
