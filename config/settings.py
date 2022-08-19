@@ -152,13 +152,12 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 25
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.office365.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'kevin.alvarado8502@hotmail.com'
-EMAIL_HOST_PASSWORD = 'kevinpaul1997'
-
+EMAIL_HOST_USER = 'km'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_BACKEND = 'core.libs.smtp.EmailBackend'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2.2/howto/static-files/
 

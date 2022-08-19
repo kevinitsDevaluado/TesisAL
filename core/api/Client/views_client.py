@@ -46,28 +46,27 @@ class ClientViewSet(viewsets.GenericViewSet):
         return Response([user_serializer.data], status = status.HTTP_200_OK)
 
     def send_email(self, id):
-        url = settings.LOCALHOST if not settings.DEBUG else self.request.META['HTTP_HOST']
         user = User.objects.get(pk=id)
+        to=user.email
+        fromemail='alex.lema7059@outlook.com'
+        subject='Términos y Condiciones'
         message = MIMEMultipart('alternative')
-        message['Subject'] = 'Registro de cuenta'
-        message['From'] = settings.EMAIL_HOST_USER
-        message['To'] = user.email
-
+        message['subject'] = subject
         parameters = {
-            'user': user,
-            #'mainpage': Mainpage.objects.first(),
-            'link_home': 'http://{}'.format(url),
-            'link_login': 'http://{}/login'.format(url),
-        }
-
+                    'user': user,
+                    #'mainpage': Mainpage.objects.first(),
+                # 'link_home': 'http://{}'.format(url),
+                    #'link_login': 'http://{}/login'.format(url),
+                }
         html = render_to_string('user/email_sign_in.html', parameters)
         content = MIMEText(html, 'html')
         message.attach(content)
-        server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-        server.starttls()
-        server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-        server.sendmail(
-            settings.EMAIL_HOST_USER, user.email, message.as_string()
-        )
-        server.quit()
+
+        mailserver = smtplib.SMTP('smtp.office365.com',587)
+        mailserver.ehlo()
+        mailserver.starttls()
+        mailserver.ehlo()  #again
+        mailserver.login('alex.lema7059@outlook.com', 'Alexleo1999lema.')
+        mailserver.sendmail(fromemail, to, message.as_string())
+        mailserver.quit()
     
