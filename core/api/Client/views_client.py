@@ -53,11 +53,11 @@ class ClientViewSet(viewsets.GenericViewSet):
         message = MIMEMultipart('alternative')
         message['subject'] = subject
         parameters = {
-                    'user': user,
+                'user': user,
                     #'mainpage': Mainpage.objects.first(),
                 # 'link_home': 'http://{}'.format(url),
                     #'link_login': 'http://{}/login'.format(url),
-                }
+        }
         html = render_to_string('user/email_sign_in.html', parameters)
         content = MIMEText(html, 'html')
         message.attach(content)
